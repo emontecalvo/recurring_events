@@ -28,7 +28,7 @@ class DeliveriesController < ApplicationController
 
 	def update
 		@delivery = Delivery.find(params[:id])
-		if @delivery.update(params[:post].permit(:title, :body))
+		if @delivery.update(params[:delivery].permit(:title, :body))
 			redirect_to @delivery
 		else
 			render 'edit'
