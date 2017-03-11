@@ -10,9 +10,9 @@ class DeliveriesController < ApplicationController
 
 	def create
 		@delivery = Delivery.new(delivery_params)
-		if @delivery.start_date.wday == 1
-			p "ITS A MONDAY"
-		end
+		x = is_weekday?
+		p "**************"
+		p x
 
 		if @delivery.save
 			redirect_to @delivery
@@ -46,11 +46,16 @@ class DeliveriesController < ApplicationController
 	end
 
 	def is_holiday?
+		
 
 	end
 
 	def is_weekday?
-
+		if @delivery.start_date.wday > 0 && @delivery.start_date < 6
+			p "ITS A WEEKDAY!!"
+			p @delivery.start_date.wday
+		end
+		return ["its a weekday", @delivery.start_date.wday]
 	end
 
 	private
