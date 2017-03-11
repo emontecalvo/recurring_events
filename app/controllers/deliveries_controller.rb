@@ -9,6 +9,7 @@ class DeliveriesController < ApplicationController
 	end
 
 	def create
+		@next_four = []
 		@delivery = Delivery.new(delivery_params)
 		adj_date = @delivery.start_date
 		am_i_done = false
@@ -25,13 +26,34 @@ class DeliveriesController < ApplicationController
 			end
 		end
 		@delivery.delivery_date = adj_date
-
+		next_four_calc
 
 		if @delivery.save
 			redirect_to @delivery
 		else
 			render 'new'
 		end
+	end
+
+	def next_four_calc
+		next_four = []
+		4.times do |x|
+			future = @delivery.delivery_date + 28
+			am_i_done = false
+			num_buf_left = @delivery.buffer_days
+			while !am_i_done 
+				if is_holiday?(future) || !is_weekday?(future)
+					future -= 1
+				elsif num_buf_left > 0
+					future -= 1
+					num_buf_left -= 1
+				else
+					am_i_done = true
+				end
+				next_four << future
+			end
+		end
+		@next_four = next_four
 	end
 
 	def show

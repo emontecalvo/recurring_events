@@ -1,24 +1,4 @@
-# README
+* used Postgres for the database
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+I assumed two years of holidays based on the banker holiday link (2017 and 2018)
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
