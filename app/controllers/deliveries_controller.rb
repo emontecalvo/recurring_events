@@ -10,6 +10,9 @@ class DeliveriesController < ApplicationController
 
 	def create
 		@delivery = Delivery.new(delivery_params)
+		if @delivery.start_date.wday == 1
+			p "ITS A MONDAY"
+		end
 
 		if @delivery.save
 			redirect_to @delivery
@@ -40,6 +43,14 @@ class DeliveriesController < ApplicationController
 		@delivery.destroy
 		
 		redirect_to root_path
+	end
+
+	def is_holiday?
+
+	end
+
+	def is_weekday?
+
 	end
 
 	private
