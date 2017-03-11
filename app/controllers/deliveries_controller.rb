@@ -10,12 +10,12 @@ class DeliveriesController < ApplicationController
 
 	def create
 		@delivery = Delivery.new(delivery_params)
-		# x = is_weekday?
-		# p "**************"
-		# p x
-		# p "* * * * *  start  date * * * * "
-		# p @delivery.start_date
-		is_holiday?
+		adj_date = @delivery.start_date
+
+		while is_holiday?(adj_date) || !is_weekday?(adj_date)
+			adj_date -= 1
+		end
+		@delivery.start_date = adj_date
 
 		if @delivery.save
 			redirect_to @delivery
@@ -48,7 +48,7 @@ class DeliveriesController < ApplicationController
 		redirect_to root_path
 	end
 
-	def is_holiday?
+	def is_holiday?(date)
 		holidays = [
 			"2017-01-02 00:00:00 UTC",
 			"2017-01-16 00:00:00 UTC",
@@ -71,22 +71,19 @@ class DeliveriesController < ApplicationController
 			"2018-11-22 00:00:00 UTC",
 			"2018-12-25 00:00:00 UTC",
 		]
-		if holidays.include?(@delivery.start_date.to_s)
-			p " $ $ $ $ $ $ $ $"
-			p "its a HOLIDAY"
+		if holidays.include?(date.to_s)
+			return true
 		else
-			p " @ @ @ @ @ @ @ @ @"
-			p "ITS NOT A HOLIDAY"
+			return false
 		end
-
 	end
 
-	def is_weekday?
-		if @delivery.start_date.wday > 0 && @delivery.start_date < 6
-			p "ITS A WEEKDAY!!"
-			p @delivery.start_date.wday
+	def is_weekday?(date)
+		if date.wday > 0 && date.wday < 6
+			return true
+		else
+			return false
 		end
-		return ["its a weekday", @delivery.start_date.wday]
 	end
 
 	private
