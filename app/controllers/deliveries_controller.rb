@@ -11,11 +11,21 @@ class DeliveriesController < ApplicationController
 	def create
 		@delivery = Delivery.new(delivery_params)
 		adj_date = @delivery.start_date
+		am_i_done = false
+		num_buf_left = @delivery.buffer_days
 
-		while is_holiday?(adj_date) || !is_weekday?(adj_date)
-			adj_date -= 1
+		while !am_i_done 
+			if is_holiday?(adj_date) || !is_weekday?(adj_date)
+				adj_date -= 1
+			elsif num_buf_left > 0
+				adj_date -= 1
+				num_buf_left -= 1
+			else
+				am_i_done = true
+			end
 		end
-		@delivery.start_date = adj_date
+		@delivery.delivery_date = adj_date
+
 
 		if @delivery.save
 			redirect_to @delivery
