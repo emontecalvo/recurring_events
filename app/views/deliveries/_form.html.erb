@@ -1,0 +1,28 @@
+	<%= form_for @delivery do |f| %>
+		<% if @delivery.errors.any? %>
+			<div id="errors">
+				<h2><%= pluralize(@delivery.errors.count, "error") %> stopped this delivery from saving</h2>
+				<ul>
+					<% @delivery.errors.full_messages.each do |msg| %>
+						<li><%= msg %></li>
+					<% end %>
+				</ul>
+			</div>
+		<% end %>
+
+		<p>
+			<%= f.label :title %><br>
+			<%= f.text_field :title %>
+		</p>
+
+		<p>
+			<%= f.label :start_date %><br>
+			<%= f.date_field :start_date %>
+		</p>
+
+		<p>
+			<%= f.submit %>
+		</p>
+
+	<% end %>
+	

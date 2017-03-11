@@ -5,7 +5,7 @@ class DeliveriesController < ApplicationController
 	end
 
 	def new
-		@deliveries = Delivery.new
+		@delivery = Delivery.new
 	end
 
 	def create

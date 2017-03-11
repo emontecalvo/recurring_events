@@ -1,0 +1,13 @@
+<h1>Your Deliveries</h1>
+
+<button><%= link_to "Create Delivery", new_delivery_path %> </button>
+
+<% @deliveries.each do |del| %>
+	<div>
+		<h2><%= link_to del.title, delivery %></h2>
+		<p>start date: <%= del.start_date %></p>
+		<p># of months between recurrances: <%= del.num_of_months_between_recur %></p>
+		<p>delivery date: <%= del.delivery_date %></p>
+		<p>buffer days: <%= del.buffer_days %></p>
+	</div>
+<% end %>

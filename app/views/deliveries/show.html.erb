@@ -1,0 +1,14 @@
+<div>
+	<h1><%= @delivery.title %></h1>
+
+	<p> Submitted <%= time_ago_in_words(@delivery.created_at) %> ago </p>
+	<%= link_to 'Edit', edit_delivery_path(@delivery) %> |
+	<%= link_to 'Delete', delivery_path(@delivery), method: :delete, data: { confirm: "Are you sure?" } %>
+
+	<p>start date: <%= @delivery.start_date %></p>
+	<p># of months between recurrances: <%= @delivery.num_of_months_between_recur %></p>
+	<p>delivery date: <%= @delivery.delivery_date %></p>
+	<p>buffer days: <%= @delivery.buffer_days %></p>
+
+
+</div>
